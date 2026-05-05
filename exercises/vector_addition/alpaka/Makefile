@@ -18,13 +18,13 @@ clean:
 	rm -f $(TARGETS_CPU) $(TARGETS_CUDA)
 
 # Paths
-ALPAKA_BASE ?= ../../../alpaka
+ALPAKA_BASE ?= ../../alpaka
 #BOOST_BASE  ?= /cvmfs/cms.cern.ch/el8_amd64_gcc13/external/boost/1.80.0-f5051ff020fe9f6f1a74162002ac1ea0
 CUDA_BASE   ?= /usr/local/cuda
 
 # Compilers
 CXX   := g++
-NVCC  := $(CUDA_BASE)/bin/nvcc
+NVCC  := nvcc
 
 # CUDA architecture (adjust for your GPU)
 # sm_70 (V100), sm_75 (T4), sm_80 (A100), sm_86 (RTX 30xx), sm_89 (RTX 40xx)
