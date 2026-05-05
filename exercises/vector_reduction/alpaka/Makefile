@@ -18,7 +18,7 @@ clean:
 	rm -f $(TARGETS_CPU) $(TARGETS_CUDA)
 
 # Paths
-ALPAKA_BASE ?= ../../../alpaka
+ALPAKA_BASE ?= ../../../../alpaka
 BOOST_BASE  ?= /cvmfs/cms.cern.ch/el8_amd64_gcc13/external/boost/1.80.0-f5051ff020fe9f6f1a74162002ac1ea0
 CUDA_BASE   ?= /usr/local/cuda
 
@@ -28,10 +28,10 @@ NVCC  := $(CUDA_BASE)/bin/nvcc
 
 # CUDA architecture (adjust for your GPU)
 # sm_70 (V100), sm_75 (T4), sm_80 (A100), sm_86 (RTX 30xx), sm_89 (RTX 40xx)
-CUDA_ARCH ?= sm_75
+CUDA_ARCH ?= sm_80
 
 # Common flags
-CXXFLAGS := -std=c++20 -O2 -g -isystem $(ALPAKA_BASE)/include
+CXXFLAGS := -std=c++20 -O2 -g -I$(ALPAKA_BASE)/include -DALPAKA_HAS_STD_ATOMIC_REF
 
 # CPU-specific flags
 CXX_CPU_FLAGS := -march=native -pthread
