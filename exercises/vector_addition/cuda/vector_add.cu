@@ -20,9 +20,13 @@ int main() {
   const int numElements = 1 << 23;
   const size_t size = numElements * sizeof(float);
 
-  float *h_A = new float[numElements];
-  float *h_B = new float[numElements];
-  float *h_C = new float[numElements];
+  float *h_A;
+  float *h_B;
+  float *h_C;
+
+  cudaMallocHost(&h_A, size);
+  cudaMallocHost(&h_B, size);
+  cudaMallocHost(&h_C, size);
 
   std::random_device rd;
   std::default_random_engine eng(rd());
@@ -96,12 +100,11 @@ int main() {
   cudaFreeAsync(d_A, stream);
   cudaFreeAsync(d_B, stream);
   cudaFreeAsync(d_C, stream);
-  cudaStreamDestroy(stream);
 
-  // Free host memory
-  delete[] h_A;
-  delete[] h_B;
-  delete[] h_C;
+  cudaFreeHost(h_A);
+  cudaFreeHost(h_B);
+  cudaFreeHost(h_C);
+  cudaStreamDestroy(stream);
 
   return (errors == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
